@@ -12,12 +12,12 @@ class bouton(pygame.sprite.Sprite):
         self.linked = False
         self.couleur = couleur
 
+
     def printButton (self, screen):
         screen.blit(self.image, (self.rect.x-(self.width/2), self.rect.y-(self.height/2))) #changer taille en fonction
 
     def drawLine (self, screen, btn2):
-        pygame.draw.line(screen, "black", (self.rect.x, self.rect.y), (btn2.rect.y, btn2.rect.y))
+        pygame.draw.line(screen, "black", (self.rect.x, self.rect.y), (btn2.rect.x, btn2.rect.y))
         self.printButton(screen)
         btn2.printButton(screen)
-
 

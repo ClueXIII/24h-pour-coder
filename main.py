@@ -1,7 +1,10 @@
 import sys, time, pygame
 from bouton import bouton
+from impultion import impultion
+from link import link
 
 pygame.init()
+clock = pygame.time.Clock()
 
 
 def clearScreen():
@@ -17,57 +20,86 @@ image = "Sweet_Button_red-black.png"
 
 #Charger le jeux
 
-btn1= bouton(image,200,200, "red")
-btn2= bouton(image,500,500, "red")
+
+btn1= bouton(image,100,50, "red")
+btn2= bouton(image,100,400, "red")
+btn3= bouton(image,400,400, "red")
+btn4= bouton(image,400,50, "red")
+
 
 btn_list = []
 btn_list.append(btn1)
 btn_list.append(btn2)
+btn_list.append(btn3)
+btn_list.append(btn4)
 
-current_link = 0
+link_list = []
+
+compteur = 60
+
+temp_link = None
 
 while running:
-
     # Background RGB
     screen.fill((255, 255, 255))
 
-    # Placer une image a des coordonées
-    btn1.printButton(screen)
-    btn2.printButton(screen)
+    #Creation de toutes les instances de link
+    for linked in link_list:
+        for impultion in linked.all_impultion:
+            impultion.impultionMove(linked.start,linked.end,1,screen)
+        linked.all_impultion.draw(screen)
 
-    # screen.blit(image, (x,y))
+    #Affichage des Boutton
+    for btn in btn_list:
+        btn.printButton(screen)
 
-    # Mise a jour de l'écran
+    if compteur == 0:
+        for linked in link_list:
+            linked.launch_impultion()
+        compteur = 60
+
+
+
+    #Actualise l'écran
     pygame.display.flip()
-
-
-    # proceed events
 
     # Fermeture du jeux
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-
-        elif event.type == pygame.MOUSEBUTTONUP:
+        #Gestion du reliage
+        if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_position = pygame.mouse.get_pos()
-            print(mouse_position)
-            if event.button == 1:  # 1= clique gauche
-                i = 0
-
+            if event.button == 1:#Click Gauche
                 for btn in btn_list:
-                    x = btn.rect.x
-                    y = btn.rect.y
                     if btn.zone.collidepoint(mouse_position):
-                        print("in")
-                        if not btn.linked:
-                            if current_link == 0:
-                                current_link = btn_list[i]
-                                btn.linked = True
-                            else:
-                                if btn.couleur == current_link.couleur:
-                                    btn.drawLine(screen, current_link)
-                                    btn.linked = True
-                                    current_link = 0
-                i += 1
+                        if not btn.linked and temp_link == None:#Si le bouton n'est pas liée
+                            temp_link = btn
+                        elif not btn.linked and temp_link != None and btn.couleur == temp_link.couleur:
+                            link_list.append(link(btn,temp_link))
+                            temp_link.linked = True
+                            temp_link = None
+                        else:
+                            temp_link = None
+            if event.button == 3:#Click Droit
+                for btn in btn_list:
+                    if btn.zone.collidepoint(mouse_position):
+                        print(btn.linked)
+                        for element in link_list:
+                            if element.end == btn:
+                                btn.linked = False
+                                element.start.linked = False
+                                link_list.remove(element)
+
+
+
+
+
+
+
+
+
+    compteur -=1
+    clock.tick(60)
 
