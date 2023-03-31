@@ -1,7 +1,8 @@
-import sys, time, pygame
+import sys, time, pygame, time
 from bouton import bouton
 from impultion import impultion
 from link import link
+from submit import submit
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -27,11 +28,14 @@ btn3= bouton(image,400,400, "red")
 btn4= bouton(image,400,50, "red")
 
 
+
 btn_list = []
 btn_list.append(btn1)
 btn_list.append(btn2)
 btn_list.append(btn3)
 btn_list.append(btn4)
+
+submitBtn = submit(540,650)
 
 link_list = []
 
@@ -53,6 +57,8 @@ while running:
     for btn in btn_list:
         btn.printButton(screen)
 
+    submitBtn.printButton(screen)
+
     if compteur == 0:
         for linked in link_list:
             linked.launch_impultion()
@@ -72,6 +78,10 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_position = pygame.mouse.get_pos()
             if event.button == 1:#Click Gauche
+
+                if submitBtn.zone.collidepoint(mouse_position):
+                    submitBtn.verifWin(screen, btn_list)
+
                 for btn in btn_list:
                     if btn.zone.collidepoint(mouse_position):
                         if not btn.linked and temp_link == None:#Si le bouton n'est pas liée
@@ -91,14 +101,6 @@ while running:
                                 btn.linked = False
                                 element.start.linked = False
                                 link_list.remove(element)
-
-
-
-
-
-
-
-
 
     compteur -=1
     clock.tick(60)
