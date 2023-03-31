@@ -18,7 +18,7 @@ class submit(pygame.sprite.Sprite):
     def printButton (self, screen):
         screen.blit(self.image, (self.rect.x-(self.width/2), self.rect.y-(self.height/2))) #changer taille en fonction
 
-    def verifWin (self, screen, liste_btn):
+    def verifWin (self, liste_btn):
         for btn in liste_btn:
             print(btn.linked)
             if btn.linked is False :
