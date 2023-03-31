@@ -39,8 +39,48 @@ lvl2.append(btn2)
 lvl2.append(btn3)
 lvl2.append(btn4)
 
+lvl3 = []
+btn1= bouton("Sweet_Button_red-black.png",205,400, "red")
+btn2= bouton("Sweet_Button_red-black.png",400,300, "red")
+btn3= bouton("Sweet_Button_red-black.png",100,500, "red")
+btn4= bouton("Sweet_Button_red-black.png",600,500, "red")
+btn5 = bouton("synthwaves_buttton_purple-lpurple.png",350,100,"purple")
+btn6 = bouton("synthwaves_buttton_purple-lpurple.png",300,500,"purple")
+btn7 = bouton("synthwaves_buttton_purple-lpurple.png",700,400,"purple")
+lvl3.append(btn1)
+lvl3.append(btn2)
+lvl3.append(btn3)
+lvl3.append(btn4)
+lvl3.append(btn5)
+lvl3.append(btn6)
+lvl3.append(btn7)
 
-btn_list = lvl1
+'''lvl4 = []
+btn1= bouton("Sweet_Button_red-black.png",205,400, "red")
+btn2= bouton("Sweet_Button_red-black.png",400,300, "red")
+btn3= bouton("Sweet_Button_red-black.png",100,500, "red")
+btn4= bouton("Sweet_Button_red-black.png",600,500, "red")
+btn1= bouton("Sweet_Button_red-black.png",300,505, "red")
+btn2= bouton("Sweet_Button_red-black.png",400,300, "red")
+btn3= bouton("Sweet_Button_red-black.png",100,500, "red")
+btn4= bouton("Sweet_Button_red-black.png",600,500, "red")
+btn5 = bouton("synthwaves_buttton_purple-lpurple.png",350,100,"purple")
+btn6 = bouton("synthwaves_buttton_purple-lpurple.png",300,500,"purple")
+btn7 = bouton("synthwaves_buttton_purple-lpurple.png",700,400,"purple")
+lvl4.append(btn1)
+lvl4.append(btn2)
+lvl4.append(btn3)
+lvl4.append(btn4)
+lvl4.append(btn5)
+lvl4.append(btn6)
+lvl4.append(btn7)
+'''
+
+lvl = 0
+
+lvl_list = [lvl1, lvl2, lvl3, lvl4]
+
+btn_list = lvl_list[lvl]
 
 link_list = []
 
@@ -64,7 +104,15 @@ logo = pygame.transform.scale(logo,(260,150))
 
 mainMenu = True
 
+#musics
+play = True
+pygame.mixer.music.load("musics/jeu24hFinalMenu.ogg")
+
 while mainMenu:
+
+    if play:
+        pygame.mixer.music.play(loops=-1)
+        play = False
 
     screen.fill((0, 0, 0))
     screen.blit(bg, (0, 0))
@@ -84,8 +132,22 @@ while mainMenu:
                     if playBtn.zone.collidepoint(mouse_position):
                         mainMenu = False
 
+play = True
+pygame.mixer.music.load("musics/jeu24hFinal.ogg")
+
 while running:
+    if play:
+        pygame.mixer.music.play(loops=-1)
+        play = False
+
     # Background RGB
+
+    if compteur % 100 == 0:
+        bgGame = pygame.image.load("fondGameImp.png")
+        bgGame = pygame.transform.scale(bgGame, (1080, 720))
+    if compteur % 2 == 1:
+        bgGame = pygame.image.load("fondGame.jpg")
+        bgGame = pygame.transform.scale(bgGame, (1080, 720))
     screen.fill((0, 0, 0))
     screen.blit(bgGame, (0, 0))
 
@@ -104,7 +166,7 @@ while running:
             linked.launch_impultion()
         compteur = 60
 
-    #submitBtn.printButton(screen)
+    submitBtn.printButton(screen)
 
     #Actualise l'écran
     pygame.display.flip()
@@ -122,29 +184,25 @@ while running:
             if event.button == 1:  # Click Gauche
                 for btn in btn_list:
                     if btn.zone.collidepoint(mouse_position):
+                        print(btn.linked)
                         if not btn.linked and temp_link == None:  # Si le bouton n'est pas liée
                             temp_link = btn
-                        elif not btn.linked and temp_link != None and btn.couleur == temp_link.couleur:
+                        elif not btn.linked and temp_link != None and btn.couleur == temp_link.couleur and btn != temp_link:
+
                             link_list.append(link(btn, temp_link))
-                            linked_number = 0
-                            for bouton in btn_list:
-                                if bouton.linked:
-                                    linked_number += 1
-                                if linked_number == len(btn_list)-2:
-                                    screen.blit(bgGame, (0, 0))
-                                    btn_list = lvl2
-                                    link_list = []
                             temp_link.linked = True
                             temp_link = None
                         else:
                             temp_link = None
                 if submitBtn.zone.collidepoint(mouse_position):
                     if submitBtn.verifWin(btn_list):
-                        print("lvl terminé")
+                        lvl += 1
+                        screen.blit(bgGame, (0, 0))
+                        link_list = []
+                        btn_list = lvl_list[lvl]
             if event.button == 3:#Click Droit
                 for btn in btn_list:
                     if btn.zone.collidepoint(mouse_position):
-                        print(btn.linked)
                         for element in link_list:
                             if element.end == btn:
                                 btn.linked = False

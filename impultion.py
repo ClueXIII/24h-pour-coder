@@ -20,7 +20,7 @@ class impultion(pygame.sprite.Sprite):
         if not self.vect:
             d = ((self.rect.centerx-x) ** 2 + (self.rect.centery-y) ** 2) ** 0.5
             self.vect[0] = d/60
-            self.vect[1] = d/60
+    self.vect[1] = d/60
             if self.rect.centerx > x :
     '''
     def impultionMove(self, btn_start, btn_dest, speed, screen):
