@@ -1,6 +1,5 @@
-import sys, time, pygame
+import pygame
 from bouton import bouton
-from impultion import impultion
 from link import link
 from submit import submit
 from play import play
@@ -52,12 +51,16 @@ bg = pygame.transform.scale(bg,(1080,720))
 bgGame = pygame.image.load("fondGame.jpg")
 bgGame = pygame.transform.scale(bgGame,(1080,720))
 
+logo = pygame.image.load("LOGO2.png")
+logo = pygame.transform.scale(logo,(260,150))
+
 mainMenu = True
 
 while mainMenu:
 
     screen.fill((0, 0, 0))
     screen.blit(bg, (0, 0))
+    screen.blit(logo, (420,400))
     playBtn.printButton(screen)
 
     pygame.display.flip()
