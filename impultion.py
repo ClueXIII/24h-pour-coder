@@ -27,17 +27,16 @@ class impultion(pygame.sprite.Sprite):
 
         x = btn_dest.rect.centerx-40
         y = btn_dest.rect.centery-40
-        if not self.vect:
+        d = ((self.rect.centerx - x) ** 2 + (self.rect.centery - y) ** 2) ** 0.5
+        if d < 50:
+            self.kill()
+        elif not self.vect:
             self.vect = [int(x - (self.rect.centerx))/60, int(y - (self.rect.centery))/60]
 
-        if self.rect.centerx != x and self.rect.centery != y:
+
             # self.rect.move(speed * vect[0], speed * vect[1])
 
-            self.rect.centerx += speed * self.vect[0]
-            self.rect.centery += speed * self.vect[1]
-
-
-        else:
-            self.kill()
+        self.rect.centerx += speed * self.vect[0]
+        self.rect.centery += speed * self.vect[1]
 
         self.compte += 1
