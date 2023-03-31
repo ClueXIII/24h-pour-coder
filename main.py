@@ -1,4 +1,6 @@
 import pygame
+import time
+
 from bouton import bouton
 from link import link
 from submit import submit
@@ -20,19 +22,25 @@ running = True
 image = "Sweet_Button_red-black.png"
 
 #Charger le jeux
+#Lvl1
+lvl1 = []
+btn1= bouton("Sweet_Button_red-black.png",205,200, "red")
+btn2= bouton("Sweet_Button_red-black.png",400,200, "red")
+lvl1.append(btn1)
+lvl1.append(btn2)
+
+lvl2 = []
+btn1= bouton("Sweet_Button_red-black.png",205,200, "red")
+btn2= bouton("Sweet_Button_red-black.png",400,200, "red")
+btn3 = bouton("synthwaves_buttton_purple-lpurple.png",350,100,"purple")
+btn4 = bouton("synthwaves_buttton_purple-lpurple.png",300,500,"purple")
+lvl2.append(btn1)
+lvl2.append(btn2)
+lvl2.append(btn3)
+lvl2.append(btn4)
 
 
-btn1= bouton(image,100,55, "red")
-btn2= bouton(image,115,250, "red")
-btn3= bouton(image,500,410, "red")
-btn4= bouton(image,400,25, "red")
-
-
-btn_list = []
-btn_list.append(btn1)
-btn_list.append(btn2)
-btn_list.append(btn3)
-btn_list.append(btn4)
+btn_list = lvl1
 
 link_list = []
 
@@ -101,6 +109,8 @@ while running:
     #Actualise l'écran
     pygame.display.flip()
 
+    time.perf_counter()
+
     # Fermeture du jeux
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -121,7 +131,9 @@ while running:
                                 if bouton.linked:
                                     linked_number += 1
                                 if linked_number == len(btn_list)-2:
-                                    print("lvl terminé")
+                                    screen.blit(bgGame, (0, 0))
+                                    btn_list = lvl2
+                                    link_list = []
                             temp_link.linked = True
                             temp_link = None
                         else:
