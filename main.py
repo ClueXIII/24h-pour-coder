@@ -80,7 +80,11 @@ while running:
             if event.button == 1:#Click Gauche
 
                 if submitBtn.zone.collidepoint(mouse_position):
-                    submitBtn.verifWin(screen, btn_list)
+                    if(submitBtn.verifWin(screen, btn_list)is True):
+                        decompte = 10
+                        if compteur == 0:
+                            decompte -= 1
+                            if
 
                 for btn in btn_list:
                     if btn.zone.collidepoint(mouse_position):

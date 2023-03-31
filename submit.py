@@ -23,6 +23,4 @@ class submit(pygame.sprite.Sprite):
             print(btn.linked)
             if btn.linked is False :
                 return False
-        print("niquel")
-
         return True
