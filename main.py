@@ -55,18 +55,17 @@ lvl3.append(btn5)
 lvl3.append(btn6)
 lvl3.append(btn7)
 
-'''lvl4 = []
+lvl4 = []
 btn1= bouton("Sweet_Button_red-black.png",205,400, "red")
 btn2= bouton("Sweet_Button_red-black.png",400,300, "red")
 btn3= bouton("Sweet_Button_red-black.png",100,500, "red")
 btn4= bouton("Sweet_Button_red-black.png",600,500, "red")
-btn1= bouton("Sweet_Button_red-black.png",300,505, "red")
-btn2= bouton("Sweet_Button_red-black.png",400,300, "red")
-btn3= bouton("Sweet_Button_red-black.png",100,500, "red")
-btn4= bouton("Sweet_Button_red-black.png",600,500, "red")
-btn5 = bouton("synthwaves_buttton_purple-lpurple.png",350,100,"purple")
+btn5 = bouton("synthwaves_buttton_purple-lpurple.png",500,100,"purple")
 btn6 = bouton("synthwaves_buttton_purple-lpurple.png",300,500,"purple")
 btn7 = bouton("synthwaves_buttton_purple-lpurple.png",700,400,"purple")
+btn8 = bouton("bouton_jaune.png",50,400,"yellow")
+btn9 = bouton("bouton_jaune.png",500,600,"yellow")
+btn10 = bouton("bouton_jaune.png",400,400,"yellow")
 lvl4.append(btn1)
 lvl4.append(btn2)
 lvl4.append(btn3)
@@ -74,7 +73,9 @@ lvl4.append(btn4)
 lvl4.append(btn5)
 lvl4.append(btn6)
 lvl4.append(btn7)
-'''
+lvl4.append(btn8)
+lvl4.append(btn9)
+lvl4.append(btn10)
 
 lvl = 0
 
